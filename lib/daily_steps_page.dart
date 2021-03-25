@@ -95,12 +95,12 @@ class _DailyStepsPageState extends State<DailyStepsPage> {
   Widget gradientShaderMask({@required Widget child}) {
     return ShaderMask(
       shaderCallback: (bounds) => LinearGradient(
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
         colors: [
           Colors.orange,
           Colors.deepOrange.shade900,
         ],
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
       ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)),
       child: child,
     );
@@ -124,7 +124,6 @@ class _DailyStepsPageState extends State<DailyStepsPage> {
     int savedStepsCountKey = 999999;
     int savedStepsCount = stepsBox.get(savedStepsCountKey, defaultValue: 0);
 
-    int todayDayNo = Jiffy(DateTime.now()).dayOfYear;
     if (value < savedStepsCount) {
       // Upon device reboot, pedometer resets. When this happens, the saved counter must be reset as well.
       savedStepsCount = 0;
@@ -132,6 +131,7 @@ class _DailyStepsPageState extends State<DailyStepsPage> {
       stepsBox.put(savedStepsCountKey, savedStepsCount);
     }
 
+    int todayDayNo = Jiffy(DateTime.now()).dayOfYear;
     // load the last day saved using a package of your choice here
     int lastDaySavedKey = 888888;
     int lastDaySaved = stepsBox.get(lastDaySavedKey, defaultValue: 0);
